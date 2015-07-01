@@ -12,6 +12,6 @@ How to set up
 -------------
 
 - Set up the LOD Group in the usual manner.
-- Change Fade Mode to "Cross Fade".
+- Change Fade Mode in the LOD Group to "Cross Fade".
 - Set Fade Transition Width to a proper value, like 0.5.
-- Change materials to use one of the cross-fading LOD shaders.
+- Change materials in the group to use one of the cross-fading LOD shaders.
