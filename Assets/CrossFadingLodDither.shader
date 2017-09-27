@@ -16,29 +16,27 @@
 
         #pragma multi_compile _ LOD_FADE_CROSSFADE
 
-        #pragma surface surf Standard vertex:vert
+        #pragma surface surf Standard
         #pragma target 3.0
 
         sampler2D _MainTex;
 
         struct Input
         {
+            float4 screenPos;
             float2 uv_MainTex;
-            UNITY_DITHER_CROSSFADE_COORDS
         };
 
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
 
-        void vert(inout appdata_full v, out Input o)
-        {
-            UNITY_INITIALIZE_OUTPUT(Input, o);
-            UNITY_TRANSFER_DITHER_CROSSFADE(o, v.vertex);
-        }
-
         void surf(Input IN, inout SurfaceOutputStandard o)
         {
+            #ifdef LOD_FADE_CROSSFADE
+            float2 vpos = IN.screenPos.xy / IN.screenPos.w * _ScreenParams.xy;
+            UnityApplyDitherCrossFade(vpos);
+            #endif
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
             o.Albedo = c.rgb;
@@ -46,9 +44,6 @@
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
-#ifdef LOD_FADE_CROSSFADE
-            UNITY_APPLY_DITHER_CROSSFADE(IN);
-#endif
         }
         ENDCG
     }
