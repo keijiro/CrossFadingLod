@@ -1,7 +1,7 @@
 Cross-fading LOD shader example
 ===============================
 
-This example shows how to use the corss-fading option of [LOD Group] with
+This example shows how to use the cross-fading option of [LOD Group] with
 custom shaders.
 
 ![blend](https://i.imgur.com/7WZm3GH.gif)
